@@ -1,0 +1,43 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: book-dev
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: book-dev
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: config/overlays/adv
+    repoURL: https://github.com/mpaulgreen/person-service-config.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - PruneLast=true
+    - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: book-health
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: book-health
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: config/overlays/health
+    repoURL: https://github.com/mpaulgreen/person-service-config.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - PruneLast=true
+    - CreateNamespace=true
