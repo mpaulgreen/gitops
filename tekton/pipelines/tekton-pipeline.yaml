@@ -8,7 +8,7 @@ spec:
       description: Source to the GIT
       name: git-url
       type: string
-    - default: main
+    - default: master
       description: revision to be used
       name: git-revision
       type: string
